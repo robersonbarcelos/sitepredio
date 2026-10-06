@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Espelho de Vendas 3D</title>
 <meta name="description" content="Espelho de vendas interativo em 3D: disponibilidade, tabela e andamento da obra.">
 <meta name="theme-color" content="#17120f">
@@ -20,7 +20,7 @@
   --shadow:0 12px 40px rgba(0,0,0,.32);
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+html,body{margin:0;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;background:var(--bg);color:var(--tx);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 #scene{position:fixed;inset:0;width:100vw;height:100vh;display:block;touch-action:none;outline:none}
 #app{position:fixed;inset:0;pointer-events:none}
@@ -39,7 +39,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 #brand-sub{margin:3px 0 0;font-size:11.5px;letter-spacing:.02em;color:var(--tx2)}
 
 /* ---------- controles ---------- */
-.controls{position:absolute;top:16px;right:16px;max-width:calc(100% - 400px);display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px;padding:8px}
+.controls{touch-action:pan-x;position:absolute;top:16px;right:16px;max-width:calc(100% - 400px);display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px;padding:8px}
 .tabs,.seg{display:flex;gap:2px;padding:3px;border-radius:10px}
 .tabs{background:rgba(0,0,0,.32)}
 .seg{background:rgba(0,0,0,.22)}
@@ -60,7 +60,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .hint.off{opacity:0}
 
 /* ---------- resumo + espelho ---------- */
-.summary{position:absolute;left:16px;bottom:16px;width:318px;padding:16px 16px 12px;max-height:calc(100vh - 120px);overflow:auto;scrollbar-width:thin}
+.summary{touch-action:pan-y;position:absolute;left:16px;bottom:16px;width:318px;padding:16px 16px 12px;max-height:calc(100vh - 120px);overflow:auto;scrollbar-width:thin}
 .stat{display:flex;align-items:baseline;gap:8px}
 .stat .num{font:600 40px/1 var(--serif);color:var(--gold)}
 .lbl{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--tx2)}
@@ -89,9 +89,9 @@ details[open] summary svg{transform:rotate(180deg)}
 .foot{margin:10px 0 0;font-size:11px;color:var(--tx3)}
 
 /* ---------- card da unidade ---------- */
-.card{position:absolute;top:140px;right:16px;width:342px;max-height:calc(100vh - 156px);overflow:auto;padding:18px 18px 16px;scrollbar-width:thin;
+.card{touch-action:pan-y;position:absolute;top:140px;right:16px;width:342px;max-height:calc(100vh - 156px);overflow:auto;padding:18px 18px 16px;scrollbar-width:thin;
   transition:opacity .3s,transform .3s}
-.card.hide-anim{opacity:0;transform:translateX(16px);pointer-events:none}
+.card.hide-anim{opacity:0;transform:translateX(16px);pointer-events:none!important;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s .3s}
 .card .close{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:8px;background:rgba(0,0,0,.25);font-size:18px;line-height:18px;color:var(--tx2)}
 .card .close:hover{color:var(--tx)}
 .eyebrow{margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx2)}

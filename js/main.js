@@ -180,7 +180,25 @@ function pick(cx, cy) {
     return hit ? { storey: hit.object.userData.storey } : null;
   }
   const hit = ray.intersectObjects(occluders, false)[0];
-  return hit?.object.userData.unit ? { unit: hit.object.userData.unit } : null;
+  if (!hit) return null;
+  if (hit.object.userData.unit) return { unit: hit.object.userData.unit };
+  const u = unitAt(hit.point);
+  return u ? { unit: u } : null;
+}
+/* toque na parede/friso entre janelas: acha a unidade daquele trecho da fachada */
+function unitAt(p) {
+  const T = CFG.torre;
+  if (Math.abs(p.x) > T.largura / 2 + 2 || Math.abs(p.z) > T.profundidade / 2 + 2) return null;
+  const s = storeys.find((q) => q.planta && p.y >= q.y && p.y < q.y + q.h);
+  if (!s) return null;
+  let best = null, bd = Infinity;
+  for (const u of units) {
+    if (u.floor !== s.floor) continue;
+    const [x0, z0, x1, z1] = u.rect;
+    const d = Math.hypot(Math.max(x0 - p.x, 0, p.x - x1), Math.max(z0 - p.z, 0, p.z - z1));
+    if (d < bd) { bd = d; best = u; }
+  }
+  return bd < 3 ? best : null;
 }
 function hovered(h, x, y) {
   state.hovered = h?.unit || null;
@@ -194,18 +212,34 @@ function hovered(h, x, y) {
   }
 }
 let down = null, moveQ = null;
-canvas.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; tween = null; });
+const touches = new Set();
+let multi = false;                       // gesto com 2+ dedos (pinça) nunca vira toque de seleção
+canvas.addEventListener('pointerdown', (e) => {
+  touches.add(e.pointerId);
+  if (touches.size > 1) multi = true;
+  down = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId };
+  tween = null;
+});
 canvas.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') moveQ = [e.clientX, e.clientY]; });
-canvas.addEventListener('pointerleave', () => hovered(null));
+canvas.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hovered(null); });
+const release = (e) => { touches.delete(e.pointerId); if (!touches.size) setTimeout(() => { if (!touches.size) multi = false; }, 0); };
+canvas.addEventListener('pointercancel', (e) => { release(e); down = null; });
 canvas.addEventListener('pointerup', (e) => {
-  if (!down) return;
-  const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t;
+  const d = down, wasMulti = multi;
+  release(e);
+  if (!d || d.id !== e.pointerId) return;
   down = null;
-  if (moved > 6 || dt > 600) return;
+  if (wasMulti) return;
+  const moved = Math.hypot(e.clientX - d.x, e.clientY - d.y), dt = performance.now() - d.t;
+  if (moved > (e.pointerType === 'mouse' ? 6 : 12) || dt > 600) return;
   const h = pick(e.clientX, e.clientY);
   if (state.mode === 'obra') { if (h) { obraUI.stop(); obraUI.setDay(tower.storeyStructDay(h.storey, sched)); } return; }
   if (h?.unit) select(h.unit);
 });
+// iOS Safari ignora user-scalable=no: bloqueia o zoom da página por gesto e duplo toque
+for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+let lastTap = 0;
+document.addEventListener('touchend', (e) => { const n = Date.now(); if (n - lastTap < 300 && !e.target.closest('button, input, summary, a')) e.preventDefault(); lastTap = n; }, { passive: false });
 addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.selected) select(null); });
 
 /* ---------- controles ---------- */
