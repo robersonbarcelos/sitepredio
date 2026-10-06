@@ -138,7 +138,8 @@ function select(u, { fly = true } = {}) {
     const dist = Math.max(115, fitDist() * .9);
     const wide = innerWidth > 760;
     // deixa a unidade à esquerda do centro quando o card ocupa a direita da tela
-    const target = u.center.clone().addScaledVector(side, wide ? 13 : 0).add(new THREE.Vector3(0, wide ? 0 : -8, 0));
+    // no celular o card ocupa a metade de baixo: a unidade fica no terço de cima da tela
+    const target = u.center.clone().addScaledVector(side, wide ? 13 : 0).add(new THREE.Vector3(0, wide ? 0 : -dist * .17, 0));
     flyTo({ pos: target.clone().addScaledVector(u.normal, dist).addScaledVector(side, 26).add(new THREE.Vector3(0, 10, 0)), target }, 1.1);
   }
 }
@@ -215,6 +216,7 @@ let down = null, moveQ = null;
 const touches = new Set();
 let multi = false;                       // gesto com 2+ dedos (pinça) nunca vira toque de seleção
 canvas.addEventListener('pointerdown', (e) => {
+  if (e.isPrimary) { touches.clear(); multi = false; }   // novo gesto: descarta dedos "perdidos" do gesto anterior
   touches.add(e.pointerId);
   if (touches.size > 1) multi = true;
   down = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId };
