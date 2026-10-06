@@ -1,0 +1,87 @@
+unidade;status;valor;vaga
+401;fora;;Simples
+402;fora;;Simples
+403;fora;;Dupla
+404;fora;;Simples
+405;fora;;Dupla
+406;fora;;Simples
+407;fora;;Simples
+501;vendida;361469,00;Simples
+502;vendida;547917,19;Simples
+503;disponivel;841752,57;Simples
+504;disponivel;500566,10;Simples
+505;vendida;894213,82;Dupla
+506;disponivel;752246,68;Simples
+507;vendida;389953,04;Sem vaga
+601;vendida;353513,82;Sem vaga
+602;vendida;554606,48;Sem vaga
+603;vendida;857356,54;Simples
+604;vendida;492963,66;Sem vaga
+605;disponivel;935466,75;Dupla
+606;vendida;757438,56;Dupla
+607;vendida;398873,45;Simples
+701;vendida;356806,55;Simples
+702;disponivel;559958,03;Simples
+703;vendida;859461,86;Dupla
+704;vendida;496794,05;Simples
+705;vendida;929747,11;Dupla
+706;vendida;767817,19;Dupla
+707;disponivel;403489,37;Sem vaga
+801;vendida;368078,53;Sem vaga
+802;vendida;577123,11;Simples
+803;vendida;891478,67;Dupla
+804;disponivel;519874,82;Simples
+805;vendida;929422,32;Dupla
+806;disponivel;792765,67;Simples
+807;vendida;398488,00;Simples
+901;vendida;366134,68;Simples
+902;disponivel;587887,18;Sem vaga
+903;vendida;882880,24;Simples
+904;disponivel;510401,95;Simples
+905;vendida;938892,46;Dupla
+906;vendida;798895,34;Dupla
+907;disponivel;413595,23;Sem vaga
+1001;vendida;378458,18;Simples
+1002;vendida;593748,01;Simples
+1003;vendida;888832,91;Dupla
+1004;vendida;516041,80;Simples
+1005;vendida;941595,60;Dupla
+1006;vendida;788887,03;Dupla
+1007;disponivel;409851,28;Simples
+1101;vendida;373392,25;Simples
+1102;vendida;587399,91;Simples
+1103;vendida;899029,30;Dupla
+1104;vendida;520254,96;Simples
+1105;vendida;974894,62;Dupla
+1106;disponivel;789375,67;Simples
+1107;vendida;424665,73;Sem vaga
+1201;vendida;379627,54;Simples
+1202;vendida;592681,41;Simples
+1203;disponivel;916038,56;Dupla
+1204;vendida;528862,23;Simples
+1205;disponivel;996115,71;Dupla
+1206;vendida;810296,34;Simples
+1207;vendida;426972,04;Simples
+1301;disponivel;380815,30;Sem vaga
+1302;vendida;593742,86;Sem vaga
+1303;vendida;911063,84;Simples
+1304;vendida;546954,13;Sem vaga
+1305;vendida;978018,54;Dupla
+1306;vendida;817930,73;Simples
+1307;vendida;433185,72;Simples
+1401;disponivel;398058,94;Simples
+1402;disponivel;609354,58;Sem vaga
+1403;disponivel;923321,94;Simples
+1404;disponivel;534618,91;Simples
+1405;disponivel;1012192,81;Dupla
+1406;disponivel;822750,15;Simples
+1407;vendida;426424,79;Simples
+1501;vendida;668829,06;Simples
+1502;disponivel;787112,11;Dupla
+1503;vendida;788239,77;Dupla
+1504;vendida;776725,71;Dupla
+1505;disponivel;883146,20;Simples
+1506;vendida;827935,62;Dupla
+1507;disponivel;651277,79;Dupla
+1508;disponivel;726043,17;Dupla
+1509;vendida;860175,53;Dupla
